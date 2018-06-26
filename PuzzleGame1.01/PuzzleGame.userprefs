@@ -1,0 +1,15 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\Coin.cs">
+    <Files>
+      <File FileName="Assets\Script\Coin.cs" Line="86" Column="51" />
+      <File FileName="Assets\Script\Table.cs" Line="2" Column="1" />
+      <File FileName="Assets\Dropzone.cs" Line="8" Column="1" />
+      <File FileName="Assets\Script\Child.cs" Line="15" Column="45" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
