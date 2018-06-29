@@ -40,7 +40,9 @@ public class Table : MonoBehaviour {
         {0,0,0}
     };
 
+    public GameObject saveSystem;
     public GameObject coinRain;
+    public GameObject gameClearSprite2;
     public GameObject gameClearSprite;
     public bool gameClear;
     public int stageNumber;
@@ -51,6 +53,7 @@ public class Table : MonoBehaviour {
     public List<int> coinValue;
     //stage number text
     public GameObject stageText;
+    // coin stack hyouji
 
     private void Check(int id1, int id2, GameObject dropzone, int value, string plusminus)
     {
@@ -174,26 +177,38 @@ public class Table : MonoBehaviour {
 
 
     }
-
-	// Use this for initialization
-	void Start () {
+    private void Awake()
+    {
         stageText = GameObject.Find("Stage");
-        stageText.GetComponent<Text>().text = "1-" + stageNumber;
         coinRain = GameObject.Find("Rain");
-        coinRain.gameObject.SetActive(false);
-        gameClearSprite = GameObject.Find("Clear");
-        gameClearSprite.gameObject.SetActive(false);
         normaNumber = GameObject.Find("Norma");
-        Row = GameObject.Find ("Row");
-		Collumn = GameObject.Find ("Col");
-		Row.GetComponent<Child> ().FindChild ();
-		Collumn.GetComponent<Child> ().FindChild ();
+        gameClearSprite = GameObject.Find("Clear");
+        gameClearSprite2 = GameObject.Find("Clear_S");
+        Row = GameObject.Find("Row");
+        Collumn = GameObject.Find("Col");
         coinCountText0 = GameObject.Find("coin1");
         coinCountText1 = GameObject.Find("coin2");
         coinCountText2 = GameObject.Find("coin3");
         coinCountText3 = GameObject.Find("coin4");
         coinCountText4 = GameObject.Find("coin5");
+        saveSystem = GameObject.Find("SaveSystem");
+    }
+
+    // Use this for initialization
+    void Start () {
+        //temporary for debug
         stageNumber = 1;
+        stageText.GetComponent<Text>().text = "1-" + stageNumber;
+        
+        coinRain.gameObject.SetActive(false);
+      
+        gameClearSprite.gameObject.SetActive(false);
+        gameClearSprite2.gameObject.SetActive(false);
+
+        Row.GetComponent<Child> ().FindChild ();
+		Collumn.GetComponent<Child> ().FindChild ();
+    
+        stageNumber = saveSystem.GetComponent<SaveSystem>().stage;
         stageText.GetComponent<Text>().text = ""+stageNumber;
         StartCoroutine(ReadConfig());
         //row = new int[3] { 1, 2, 3 };
@@ -275,7 +290,14 @@ public class Table : MonoBehaviour {
 
         }
         rowNumber[0] = 9;
-        gameClearSprite.gameObject.SetActive(true);
+        if(currentNorma== 0)
+        {
+            gameClearSprite2.gameObject.SetActive(true);
+        } else
+        {
+            gameClearSprite.gameObject.SetActive(true);
+        }
+        //gameClearSprite.gameObject.SetActive(true);
         coinRain.gameObject.SetActive(true);
         gameClear = true;
     }
@@ -386,6 +408,7 @@ public class Table : MonoBehaviour {
         coinType = CoinTypeChk();
         GetComponent<coinPosition>().ChangeCoinLayout();
         gameClearSprite.gameObject.SetActive(false);
+        gameClearSprite2.gameObject.SetActive(false);
         gameClear = false;
         //for (int i =0; i < row.Length; i++)
         //{

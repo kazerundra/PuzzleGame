@@ -92,10 +92,11 @@
     <Compile Include="Assets\Script\Coin.cs" />
     <Compile Include="Assets\Script\Dropzone.cs" />
     <Compile Include="Assets\Script\Effect.cs" />
+    <Compile Include="Assets\Script\SaveSystem.cs" />
     <Compile Include="Assets\Script\SceneChange.cs" />
+    <Compile Include="Assets\Script\StageSelect.cs" />
     <Compile Include="Assets\Script\Table.cs" />
     <Compile Include="Assets\Script\coinPosition.cs" />
-    <Compile Include="Assets\StageSelect.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\StreamingAssets\stages\1.txt" />

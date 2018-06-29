@@ -61,7 +61,7 @@ public class Coin : MonoBehaviour {
             if (ontable)
             {
                 Destroy(gameObject);
-                table.ReduceNumber(coinposition, basecoin.GetComponent<Coin>().value, "plus");
+                table.ReduceNumber(coinposition, value, "plus");
                 TableCount();
             }
         }
@@ -82,8 +82,13 @@ public class Coin : MonoBehaviour {
              
                 stackPlus = true;
                 GameObject go;
-                string coinclone = "Prefabs/CoinClone" + coinOrder;
+                string coinclone = "Prefabs/CoinClone1";
                 go = Instantiate(Resources.Load(coinclone)) as GameObject;
+                go.GetComponent<Coin>().value = value;
+                go.GetComponent<Coin>().coinOrder = coinOrder;
+                go.GetComponent<Coin>().basecoin = gameObject;
+         
+                //go.GetComponent<Coin>().ChangeSprite(); 
                 go.transform.position = DropObject.transform.position;
                 go.GetComponent<SpriteRenderer>().sortingOrder = DropObject.GetComponent<Dropzone>().cointSt + 2;
                 id = DropObject.gameObject.transform.name;
@@ -91,7 +96,9 @@ public class Coin : MonoBehaviour {
                 DropObject = null;
                 go.GetComponent<Coin>().coinposition = id;
                 go.GetComponent<Coin>().ontable = true;
-                go.GetComponent<Coin>().ChangeSprite();
+                string coinN = "Images/coin" + value;
+
+                go.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(coinN);
                 touchParticle.transform.position = go.transform.position;
                 touchParticle.GetComponent<ParticleSystem>().Emit(10);
                 table.coinNumber[coinOrder - 1] -= 1;
@@ -104,23 +111,27 @@ public class Coin : MonoBehaviour {
 	}
     private void Awake()
     {
-        string coinclone = "CoinClone" + value;
-        basecoin = GameObject.Find(coinclone);
+       
+        
         touchParticle = GameObject.Find("Tparticle");
+        coinOrder = value;
+        table = GameObject.Find("GameController").GetComponent<Table>();
+        string coinclone = "CoinClone" + coinOrder;
+        basecoin = GameObject.Find(coinclone);
+
     }
 
     // Use this for initialization
     void Start () {
-        coinOrder = value;
+        
         ChangeSprite();
        
-        touchParticle = GameObject.Find("Tparticle");
         //sementara nilainya 1 semua
         //value = 1;
-        table = GameObject.Find("GameController").GetComponent<Table>();
+       
         initialPosition = transform.position;
         touchPosition = transform.position;
-        string coinclone = "Prefabs/CoinClone" + value;
+        string coinclone = "Prefabs/CoinClone1";
         Clone = Resources.Load(coinclone) as GameObject;
         
     }
@@ -139,8 +150,8 @@ public class Coin : MonoBehaviour {
     }
     public void ChangeSprite()
     {
-        string coinclone = "Prefabs/CoinClone" + value;
-        Clone = Resources.Load(coinclone) as GameObject;
+       // string coinclone = "Prefabs/CoinClone1" ;
+        Clone = Resources.Load("Prefabs/CoinClone1") as GameObject;
         string coinN = "Images/coin" + value;
         coinSprites = Resources.Load<Sprite>(coinN);
         GetComponent<SpriteRenderer>().sprite = coinSprites;
@@ -157,10 +168,13 @@ public class Coin : MonoBehaviour {
                 if (!clone)
                 {
                     clone = true;
-                    string coinclone = "Prefabs/CoinClone" + value;
-                    Clone = Instantiate(Resources.Load(coinclone)) as GameObject;
+                    Clone = Instantiate(Resources.Load("Prefabs/CoinClone1")) as GameObject;
+                    Clone.GetComponent<Coin>().value = value;
+                    string coinN = "Images/coin" + value;
+                    Clone.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(coinN);
                     Clone.transform.position = initialPosition;
                     Clone.GetComponent<SpriteRenderer>().sortingOrder = 1;
+              
 
                 }
             }

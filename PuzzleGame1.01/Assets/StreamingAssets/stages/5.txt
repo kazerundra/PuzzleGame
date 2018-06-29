@@ -1,6 +1,6 @@
 3
-rows,0,4,0
-cols,1,2,1
+rows,1,1,1
+cols,1,1,1
 norma,3
 value,1
-coins,4
+coins,3

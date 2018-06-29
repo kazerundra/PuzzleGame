@@ -1,6 +1,6 @@
 3
-rows,2,2,2
-cols,1,4,1
-norma,4
-value,1,2
-coins,2,2
+rows,2,6,1
+cols,3,3,3
+norma,5
+value,1,2,3
+coins,4,1,1
