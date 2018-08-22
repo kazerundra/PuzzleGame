@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 6c552e3812feae54f833c90b867dc550
+timeCreated: 1534395010
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Ferro Rosso
+  fontNames:
+  - Ferro Rosso
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -17,6 +17,8 @@ public class SceneChange : MonoBehaviour {
         SceneManager.LoadScene("StageSelect");
  
     }
+
+  
     public void GameScene()
     {
         SceneManager.LoadScene("Game");

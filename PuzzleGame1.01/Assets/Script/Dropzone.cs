@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Dropzone : MonoBehaviour {
-    public List<int> coinStack;
+   // public List<int> coinStack;
     public int cointSt;
     public Table table;
+ 
 
     public void addStack(int value)
     {
-        coinStack.Add(value);
+       // coinStack.Add(value);
        // Debug.Log(coinStack);
         cointSt += 1;
     }
@@ -26,7 +27,7 @@ public class Dropzone : MonoBehaviour {
     }
     // Use this for initialization
     void Start () {
-        coinStack = new List<int>();
+       // coinStack = new List<int>();
         cointSt = 0;
         table = GameObject.Find("GameController").GetComponent<Table>();
 		
@@ -37,7 +38,7 @@ public class Dropzone : MonoBehaviour {
         if(table.gameClear == true)
         {
             cointSt = 0;
-            coinStack.Clear();
+            //coinStack.Clear();
         }
 	}
 }

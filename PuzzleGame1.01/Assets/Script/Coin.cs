@@ -14,7 +14,7 @@ public class Coin : MonoBehaviour {
     public GameObject basecoin ;
     public Vector2 touchPosition;
     //the first time coin is placed
-    public Vector2 initialPosition;
+    public Vector3 initialPosition;
     // how much this coin value is
 	public int value;
     //coin clone number
@@ -27,20 +27,32 @@ public class Coin : MonoBehaviour {
     // is the coin ontable or inhand
     public bool ontable;
     public string coinposition;
-    public bool stackPlus;
+    //public bool stackPlus;
     public GameObject touchParticle;
+    public GameObject dragParticle;
+    //if the coinstack number is different cannot remove
+    public int coinstchk;
+    //ontable only,dropzone gameobject save
+    public GameObject drpzn;
+    //destroy clone;
+    public bool destroy;
+    //coin outside the table that is not first one
+    public bool outSideTable;
 
     public Sprite coinSprites;
     void OnMouseDrag(){
 
-        if (table.gameClear == false)
+        if (table.gameClear == false && !ontable)
         {
             if (table.coinNumber[(coinOrder - 1)] > 0)
             {
-                GetComponent<BoxCollider2D>().size = new Vector2(4.0f, 4.0f);
+                GetComponent<BoxCollider2D>().size = new Vector2(8.0f, 8.0f);
                 drag = true;
                 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 transform.position = touchPosition;
+               
+                dragParticle.GetComponent<ParticleSystem>().Emit(1);
+                dragParticle.transform.position = touchPosition;
             }
         }
            
@@ -55,47 +67,68 @@ public class Coin : MonoBehaviour {
     
     private void OnMouseDown ()
     {
-
+        if (outSideTable) return;
         if (table.gameClear == false)
         {
-            if (ontable)
+            if (ontable )
             {
-                Destroy(gameObject);
+                Flyback();
+                //Destroy(gameObject);
                 table.ReduceNumber(coinposition, value, "plus");
                 TableCount();
+                table.WriteText();
             }
         }
             
       
     }
+    private void Flyback()
+    {
+        destroy = true;
+      
+    }
     void OnMouseUp(){
-        if(table.gameClear == false)
+        if (outSideTable) return;
+        if (table.gameClear == false )
         {
+            if(drag) Destroy(Clone);
             drag = false;
             clone = false;
-            Destroy(Clone);
+            
             transform.position = initialPosition;
             GetComponent<BoxCollider2D>().size = new Vector2(10.0f, 10.0f);
-            if (DropObject != null && dropAble == true)
+            if (DropObject != null && dropAble == true && !ontable)
             {
                 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-             
-                stackPlus = true;
+
+               // stackPlus = true;
                 GameObject go;
                 string coinclone = "Prefabs/CoinClone1";
                 go = Instantiate(Resources.Load(coinclone)) as GameObject;
                 go.GetComponent<Coin>().value = value;
                 go.GetComponent<Coin>().coinOrder = coinOrder;
                 go.GetComponent<Coin>().basecoin = gameObject;
-         
+               
+
                 //go.GetComponent<Coin>().ChangeSprite(); 
-                go.transform.position = DropObject.transform.position;
+                if (DropObject.GetComponent<Dropzone>().cointSt == 0)
+                {
+                    go.transform.position = DropObject.transform.position;
+                }
+                else
+                {
+                    go.transform.position = DropObject.transform.position + new Vector3(0f, (DropObject.GetComponent<Dropzone>().cointSt), 0);
+                }
                 go.GetComponent<SpriteRenderer>().sortingOrder = DropObject.GetComponent<Dropzone>().cointSt + 2;
                 id = DropObject.gameObject.transform.name;
                 table.ReduceNumber(id, value, "minus");
+                go.GetComponent<Coin>().coinstchk = DropObject.GetComponent<Dropzone>().cointSt;
                 DropObject = null;
+              
                 go.GetComponent<Coin>().coinposition = id;
                 go.GetComponent<Coin>().ontable = true;
+                go.GetComponent<Coin>().drpzn = GameObject.Find(id);
+
                 string coinN = "Images/coin" + value;
 
                 go.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(coinN);
@@ -104,6 +137,8 @@ public class Coin : MonoBehaviour {
                 table.coinNumber[coinOrder - 1] -= 1;
                 table.Coinnumber();
                 EnableSprite(coinOrder - 1);
+                table.WriteText();
+                table.soundController.GetComponent<SoundController>().PlayCoinset();
             }
         }
    
@@ -111,8 +146,9 @@ public class Coin : MonoBehaviour {
 	}
     private void Awake()
     {
+        //Input.multiTouchEnabled = false;
        
-        
+        dragParticle = GameObject.Find("Tparticlezz");
         touchParticle = GameObject.Find("Tparticle");
         coinOrder = value;
         table = GameObject.Find("GameController").GetComponent<Table>();
@@ -131,8 +167,8 @@ public class Coin : MonoBehaviour {
        
         initialPosition = transform.position;
         touchPosition = transform.position;
-        string coinclone = "Prefabs/CoinClone1";
-        Clone = Resources.Load(coinclone) as GameObject;
+        //string coinclone = "Prefabs/CoinClone1";
+       // Clone = Resources.Load(coinclone) as GameObject;
         
     }
    
@@ -160,6 +196,29 @@ public class Coin : MonoBehaviour {
     // Update is called once per frame
     void Update () {
        
+        if (destroy)
+        {
+            float speed = 1000 * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, basecoin.transform.position, speed);
+            if (transform.position == basecoin.transform.position)
+            {
+
+                Destroy(gameObject);
+            }
+        }
+        if (ontable)
+        {
+            if (drpzn.GetComponent<Dropzone>().cointSt != coinstchk)
+            {
+                GetComponent<BoxCollider2D>().enabled = false;
+            }
+            else
+            {
+                GetComponent<BoxCollider2D>().enabled = true;
+            }
+        }
+       
+       
         if (table.gameClear == false)
         {
             if (drag == true)
@@ -167,6 +226,7 @@ public class Coin : MonoBehaviour {
 
                 if (!clone)
                 {
+                    
                     clone = true;
                     Clone = Instantiate(Resources.Load("Prefabs/CoinClone1")) as GameObject;
                     Clone.GetComponent<Coin>().value = value;
@@ -174,7 +234,12 @@ public class Coin : MonoBehaviour {
                     Clone.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(coinN);
                     Clone.transform.position = initialPosition;
                     Clone.GetComponent<SpriteRenderer>().sortingOrder = 1;
-              
+                    if (table.coinNumber[coinOrder - 1] == 1)
+                    {
+                        Clone.GetComponent<SpriteRenderer>().enabled = false;
+                        
+                    }
+
 
                 }
             }
