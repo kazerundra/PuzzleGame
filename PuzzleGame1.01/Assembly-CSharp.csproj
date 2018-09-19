@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{86309467-A510-E666-0758-21244C4EB1EA}</ProjectGuid>
+    <ProjectGuid>{1C95E659-E684-A666-F071-73A84D1A3F29}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -59,16 +59,13 @@
      <None Include="Assets\StreamingAssets\stages\17.txt" />
      <None Include="Assets\StreamingAssets\stages\4.txt" />
      <None Include="Assets\StreamingAssets\stages\8.txt" />
-     <None Include="Assets\StreamingAssets\stages\37.txt" />
      <None Include="Assets\StreamingAssets\stages\30.txt" />
      <None Include="Assets\StreamingAssets\stages\25.txt" />
      <None Include="Assets\StreamingAssets\stages\21.txt" />
-     <None Include="Assets\StreamingAssets\stages\36.txt" />
      <None Include="Assets\StreamingAssets\stages\22.txt" />
      <None Include="Assets\StreamingAssets\stages\3.txt" />
      <None Include="Assets\StreamingAssets\stages\29.txt" />
      <None Include="Assets\StreamingAssets\stages\10.txt" />
-     <None Include="Assets\StreamingAssets\stages\34.txt" />
      <None Include="Assets\StreamingAssets\stages\31.txt" />
      <None Include="Assets\StreamingAssets\stages\28.txt" />
      <None Include="Assets\StreamingAssets\stages\7.txt" />
@@ -80,10 +77,8 @@
      <None Include="Assets\StreamingAssets\stages\14.txt" />
      <None Include="Assets\StreamingAssets\stages\20.txt" />
      <None Include="Assets\StreamingAssets\stages\1.txt" />
-     <None Include="Assets\StreamingAssets\stages\40.txt" />
      <None Include="Assets\StreamingAssets\stages\12.txt" />
      <None Include="Assets\StreamingAssets\stages\23.txt" />
-     <None Include="Assets\StreamingAssets\stages\35.txt" />
      <None Include="Assets\StreamingAssets\stages\11.txt" />
      <None Include="Assets\StreamingAssets\stages\6.txt" />
      <None Include="Assets\StreamingAssets\stages\32.txt" />
@@ -92,12 +87,10 @@
      <None Include="Assets\StreamingAssets\stages\18.txt" />
      <None Include="Assets\StreamingAssets\stages\19.txt" />
      <None Include="Assets\StreamingAssets\stages\33.txt" />
-     <None Include="Assets\StreamingAssets\stages\39.txt" />
-     <None Include="Assets\StreamingAssets\stages\38.txt" />
      <None Include="Assets\StreamingAssets\stages\2.txt" />
      <None Include="Assets\StreamingAssets\stages\27.txt" />
  <Reference Include="Facebook.Unity.Settings">
- <HintPath>C:/Users/student/Desktop/PuzzleGame1.01/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
+ <HintPath>C:/Users/Rundra/Downloads/PuzzleGame1.03Final/PuzzleGame1.03Final/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
@@ -119,15 +112,6 @@
  </Reference>
  <Reference Include="UnityEngine.VR">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
- </Reference>
- <Reference Include="Mono.Cecil">
- <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.iOS.Extensions.Xcode">
- <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.iOS.Extensions.Common">
- <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

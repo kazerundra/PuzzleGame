@@ -138,7 +138,11 @@ public class Coin : MonoBehaviour {
                 table.Coinnumber();
                 EnableSprite(coinOrder - 1);
                 table.WriteText();
-                table.soundController.GetComponent<SoundController>().PlayCoinset();
+                if(table.soundController.GetComponent<SoundController>().sfxOn ==true)
+                {
+                    table.soundController.GetComponent<SoundController>().PlayCoinset();
+                }
+                
             }
         }
    

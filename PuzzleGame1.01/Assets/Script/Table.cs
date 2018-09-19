@@ -6,18 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Table : MonoBehaviour {
-    //public int[,] table = new int[,] {
-    //    {0,0,0},
-    //    {0,0,0},
-    //    {0,0,0}
-    //};
-    //public int[,] table2 = new int[,] {
-    //    {0,0,0,0},
-    //    {0,0,0,0},
-    //    {0,0,0,0},
-    //    {0,0,0,0}
-    //};
-
+   
     public int[] row;
     public int[] collumn;
     public int[,] question = new int[,] {
@@ -47,7 +36,7 @@ public class Table : MonoBehaviour {
     public GameObject coinCountText4;
     public int[] coinCount;
     public int[,] normaCheck = new int[,] {
-         {0,0,0,0},
+        {0,0,0,0},
         {0,0,0,0},
         {0,0,0,0},
         {0,0,0,0}
@@ -70,8 +59,6 @@ public class Table : MonoBehaviour {
     public List<int> coinValue;
     //stage number text
     public GameObject stageText;
-    
-
     // coin stack hyouji
 
     public GameObject x3;
@@ -88,18 +75,28 @@ public class Table : MonoBehaviour {
     float clearScreenTime = 1.5f;
     float clear = 0;
     bool clearScreen;
+    // チュートリアルの画面が表示されるかどうか。
+    public bool tutorial;
+    public GameObject tutorialScreen;
+    public GameObject tutorialPic;
 
 
+   
+    /// <summary>
+	///  テーブルの上にあるのコインの合計あたいを減らすと増やす
+    /// </summary>
+    /// <param name="id1">行.</param>
+    /// <param name="id2">列.</param>
+    /// <param name="dropzone">置く場所のgameobject.</param>
+    /// <param name="value">値.</param>
+    /// <param name="plusminus">プラスかマイナスか.</param>
     private void Check(int id1, int id2, GameObject dropzone, int value, string plusminus)
-    {
-        
+    {        
         if (plusminus == "minus")
         {
             rowNumber[id1] -= value;
             colNumber[id2] -= value;
-            normaCheck[id1, id2] += 1;
-
-            
+            normaCheck[id1, id2] += 1;            
             dropzone.GetComponent<Dropzone>().addStack(value );
         }
         else
@@ -108,10 +105,9 @@ public class Table : MonoBehaviour {
             colNumber[id2] += value;
             normaCheck[id1, id2] -= 1;          
             dropzone.GetComponent<Dropzone>().reduceStack();
-        }
-       
-      
+        }    
     }
+	//テーブルにコインが何州類があります
     public int CoinTypeChk()
     {
         int total =0;
@@ -120,12 +116,17 @@ public class Table : MonoBehaviour {
             {
                total++;
             }
-        }
-       
+        }       
         return total;
-    }
- 
+    } 
 
+
+	/// <summary>
+	/// 置く場所のスクリプトの残りコインの数を減ってまたは増やす
+	/// </summary>
+	/// <param name="id">置く場所の行と列(00なら1行1列).</param>
+	/// <param name="value">値(4　ならマイナスまたはプラス4).</param>
+	/// <param name="plusminus">プラスかマイナスか.</param>
     public void ReduceNumber(string id, int value, string plusminus)
     {
         GameObject dropzone;
@@ -146,52 +147,37 @@ public class Table : MonoBehaviour {
                 if (normaCheck[i, j] > 0)
                 {
                     coinTotal += 1;
-                } else
-                {
-                    
-                }
-            }
-  
+                } 
+            }  
         }
-        //currentNorma = norma +coinTotal;
 		currentNorma = 0 +coinTotal;
         coinTotal = 0;
         normaNumber.GetComponent<Text>().text = currentNorma.ToString();
-
-
     }
     private void Awake()
-    {
-       // Input.multiTouchEnabled = false;
+    {   
         main = GameObject.Find("Main Camera");
-        loadc = GameObject.Find("Load Camera");
-       
-        soundController = GameObject.Find("SoundController");
-        
+        loadc = GameObject.Find("Load Camera");       
+        soundController = GameObject.Find("SoundController");        
         coinRain = GameObject.Find("Rain");
-  //      normaNumber = GameObject.Find("Norma");
-		//limitNumber = GameObject.Find ("Limit");
-		//ok = GameObject.Find ("Sep");
         gameClearSprite = GameObject.Find("Clear");
         gameClearSprite2 = GameObject.Find("Clear_S");
-        //Row = GameObject.Find("Row");
-        //Collumn = GameObject.Find("Col");
         coinCountText0 = GameObject.Find("coin1");
         coinCountText1 = GameObject.Find("coin2");
         coinCountText2 = GameObject.Find("coin3");
         coinCountText3 = GameObject.Find("coin4");
         coinCountText4 = GameObject.Find("coin5");
         saveSystem = GameObject.Find("SaveSystem");
+        tutorialScreen = GameObject.Find("Tutorial");
+        tutorialPic = GameObject.Find("TutorialPic");
     }
 
+    //次のステージの黒画面をだす
     void BlackScreenLoad()
     {
         main.GetComponent<Camera>().enabled = false;
         loadc.GetComponent<Camera>().enabled = true;
-
-
-        loadTime += Time.deltaTime * 10;
-        //Debug.Log(loadTime);
+        loadTime += Time.deltaTime * 10;      
         if (loadTime >= 1.5)
         {
             load = false;
@@ -200,28 +186,17 @@ public class Table : MonoBehaviour {
             main.GetComponent<Camera>().enabled = true;
         }
     }
-
     // Use this for initialization
     void Start () {
-        load = true;
-       
-        coinRain.gameObject.SetActive(false);
-      
+        load = true;       
+        coinRain.gameObject.SetActive(false);      
         gameClearSprite.gameObject.SetActive(false);
         gameClearSprite2.gameObject.SetActive(false);
-
-        
-    
-        stageNumber = saveSystem.GetComponent<SaveSystem>().stage;
-        
-        StartCoroutine(ReadConfig());
-        //row = new int[3] { 1, 2, 3 };
-        //collumn = new int[3] { 1, 2, 3};
-       
-        //coinCount = new int[5] { 1,1,1,0,0};
-        //norma = 3;
-   
+        tutorialScreen.gameObject.SetActive(false);
+        stageNumber = saveSystem.GetComponent<SaveSystem>().stage;        
+        StartCoroutine(ReadConfig());   
     }
+	//コインの数のテキストを書く
     public void Coinnumber()
     {         
         if(coinNumber[0] == 0)
@@ -263,14 +238,9 @@ public class Table : MonoBehaviour {
         {
             coinCountText4.GetComponent<Text>().text = "x" + coinNumber[4].ToString();
         }
-
     }
-
-
-
-
-    public void WriteText(){
-        
+	//列と行の数字を書く
+    public void WriteText(){        
 		for (int i = 0; i < gameMode; i++) {
 			question [0, i] = rowNumber[i];
             question[1, i] = colNumber[i];
@@ -278,8 +248,7 @@ public class Table : MonoBehaviour {
 		
 		Row.GetComponent<Child> ().q0.GetComponent<Text>().text = question [0,0].ToString();
 		Row.GetComponent<Child> ().q1.GetComponent<Text>().text = question [0,1].ToString();
-		Row.GetComponent<Child> ().q2.GetComponent<Text>().text = question [0,2].ToString();
-        
+		Row.GetComponent<Child> ().q2.GetComponent<Text>().text = question [0,2].ToString();        
         Collumn.GetComponent<Child> ().q0.GetComponent<Text>().text = question [1,0].ToString();
 		Collumn.GetComponent<Child> ().q1.GetComponent<Text>().text = question [1,1].ToString();
 		Collumn.GetComponent<Child> ().q2.GetComponent<Text>().text = question [1,2].ToString();
@@ -289,6 +258,7 @@ public class Table : MonoBehaviour {
             Collumn.GetComponent<Child>().q3.GetComponent<Text>().text = question[1, 3].ToString();
         }
     }
+	//ゲームクリアした時全部リセット
     public void GameClear()
     {
         if(gameMode == 3)
@@ -299,7 +269,6 @@ public class Table : MonoBehaviour {
                 {
                     normaCheck[i, j] = 0;
                 }
-
             }
         }
         else {
@@ -309,43 +278,25 @@ public class Table : MonoBehaviour {
                 {
                     normaCheck[i, j] = 0;
                 }
-
             }
-        }
-      
+        }      
         rowNumber[0] = 9;
-       
-        //gameClearSprite.gameObject.SetActive(true);
         coinRain.gameObject.SetActive(true);
-
         clearScreen = true;
-        
-       
-
-        
     }
 
-
+	//テクストファイルからステージを読み込む
     IEnumerator ReadConfig()
     {
-        //while (GetComponent<coinPosition>().ready == false)
-        //{
-        //    yield return null;
-        //}
         rowNumber.Clear();
         colNumber.Clear();
         coinNumber.Clear();
         coinValue.Clear();
         string line;
-        
-
         //filename to be read
         string filename = stageNumber + ".txt";
         //filepath in the project assets
         string path = "";
-
-
-
 #if UNITY_EDITOR
         path = Application.streamingAssetsPath + "/stages/" + filename;
         FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read);
@@ -363,10 +314,7 @@ public class Table : MonoBehaviour {
 
         while ((line = file.ReadLine()) != null)
         {
-            //Debug.Log(line);
-
             List<string> row = new List<string>();
-
             string[] str = line.Split(',');
             //if 3x3
             if (str[0] == "3")
@@ -382,8 +330,11 @@ public class Table : MonoBehaviour {
                 ok = GameObject.Find("Sep");
                 Row.GetComponent<Child>().FindChild();
                 Collumn.GetComponent<Child>().FindChild();
-                stageText.GetComponent<Text>().text = "" + stageNumber;
+				if(stageNumber <=3) stageText.GetComponent<Text>().text = "0" ;
+				else stageText.GetComponent<Text>().text = "" + (stageNumber -3);
+
             }
+            //if 4
             else if (str[0] == "4")
             {
                 x4.SetActive(true);
@@ -397,7 +348,7 @@ public class Table : MonoBehaviour {
                 ok = GameObject.Find("Sep");
                 Row.GetComponent<Child>().FindChild();
                 Collumn.GetComponent<Child>().FindChild();
-                stageText.GetComponent<Text>().text = "" + stageNumber;
+				stageText.GetComponent<Text>().text = "" + (stageNumber -3);
             }
             else if (str[0] == "rows")
             {
@@ -460,31 +411,25 @@ public class Table : MonoBehaviour {
         GetComponent<coinPosition>().ChangeCoinLayout();
         gameClearSprite.gameObject.SetActive(false);
         gameClearSprite2.gameObject.SetActive(false);
-        gameClear = false;
-        //for (int i =0; i < row.Length; i++)
-        //{
-        //    row[i] = rowNumber[i];
-        //    collumn[i] = colNumber[i];
-        //}
-        //for (int i =0; i < coinCount.Length; i++)
-        //{
-        //    coinCount[i] = coinNumber[i];
-        //}
-
-
-        
+        gameClear = false;  
+        if(stageNumber== 1 || stageNumber == 2 || stageNumber == 3)
+        {
+            tutorial = true;
+        }
         yield return null;
 
     }
+
+    // 今のステージを最リロード
     public void ResetStage()
-    {
-        
+    {        
         SceneManager.LoadScene("Game");
     }
+    //次のステージに移動
     public void NextStage()
     {
         load = true;
-        if (stageNumber < 30)
+        if (stageNumber < 33)
         {
             stageNumber += 1;
             saveSystem.GetComponent<SaveSystem>().stage = stageNumber;
@@ -496,7 +441,9 @@ public class Table : MonoBehaviour {
         
         StartCoroutine(ReadConfig());
         coinRain.gameObject.SetActive(false);
-        stageText.GetComponent<Text>().text = "" + stageNumber;
+		if(stageNumber <=3) stageText.GetComponent<Text>().text = "T" + stageNumber ;
+		else stageText.GetComponent<Text>().text = "" + (stageNumber -3);
+
         Row.GetComponent<Child>().q0.GetComponent<Animation>().Play();
         Row.GetComponent<Child>().q1.GetComponent<Animation>().Play();
         Row.GetComponent<Child>().q2.GetComponent<Animation>().Play();
@@ -505,6 +452,11 @@ public class Table : MonoBehaviour {
         Collumn.GetComponent<Child>().q2.GetComponent<Animation>().Play();
 
     }
+    /// <summary>
+    /// 行と列の数字のアニメション　
+    /// </summary>
+    /// <param name="id1">行</param>
+    /// <param name="id2">列</param>
     public void RowColAnim(int id1, int id2)
     {
         Child rowc = Row.GetComponent<Child>();
@@ -541,8 +493,31 @@ public class Table : MonoBehaviour {
         }
 
     }
-    // Update is called once per frame
+
+    public void turnofftutorial()
+    {
+        tutorial = false;
+        tutorialScreen.gameObject.SetActive(false);
+    }
+    //Update is called once per frame
     void Update () {
+		//チュートリアルの画像を入れ替え
+        if (tutorial)
+        {
+            if(stageNumber == 1)
+            {
+                tutorialPic.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/t1");
+            }else if(stageNumber == 2)
+            {
+                tutorialPic.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/t2");
+            }
+            else if (stageNumber == 3)
+            {
+                tutorialPic.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/t3");
+            }
+            tutorialScreen.gameObject.SetActive(true);
+        }
+		//クリア画面を出す
         if (clearScreen)
         {
             clear += Time.deltaTime;
@@ -551,27 +526,19 @@ public class Table : MonoBehaviour {
                 clearScreen = false;
                 clear += Time.deltaTime;
                 gameClearSprite2.gameObject.SetActive(true);
-                saveSystem.GetComponent<SaveSystem>().ClearedStage(stageNumber);
+				if(stageNumber ==1 ||stageNumber ==2 || stageNumber ==3) saveSystem.GetComponent<SaveSystem>().ClearedStage(stageNumber+30);
+                else saveSystem.GetComponent<SaveSystem>().ClearedStage(stageNumber-3);
                 gameClear = true;
                 clear = 0;
             }
         }
-        //Debug.Log(rowNumber[0]);
-        //Debug.Log(colNumber[0]);
-        //Debug.Log(coinNumber[0]);
         if (load)
         {
             BlackScreenLoad();
         }
-     
-         //WriteText();
        
 		if (currentNorma == limit) 
 		{
-//			ok.GetComponent<Text>().color = Color.green;
-//			ok.GetComponent<Text>().text = "OK";
-//			normaNumber.gameObject.SetActive(false);
-//			limitNumber.gameObject.SetActive(false);
 			normaNumber.GetComponent<Text>().color = Color.green;
 			limitNumber.GetComponent<Text>().color = Color.green;
 		} 
@@ -584,14 +551,10 @@ public class Table : MonoBehaviour {
         
 		else 
 		{ 
-//			ok.GetComponent<Text>().color = Color.black;
-//			ok.GetComponent<Text>().text = "/";
-//			normaNumber.gameObject.SetActive(true);
-//			limitNumber.gameObject.SetActive(true);
 			normaNumber.GetComponent<Text>().color = Color.black; 
 			limitNumber.GetComponent<Text>().color = Color.black;
 		}
-
+		//ゲームクリアかどうか確認
         if (!gameClear)
         {
             if(gameMode == 3)
@@ -599,10 +562,7 @@ public class Table : MonoBehaviour {
                 if (rowNumber[0] == 0 && rowNumber[1] == 0 && rowNumber[2] == 0 && colNumber[0] == 0 && colNumber[1] == 0 && colNumber[2] == 0 && currentNorma == limit)
                 {
                     GameClear();
-                    soundController.GetComponent<AudioSource>().PlayOneShot(soundController.GetComponent<SoundController>().coinDrop);
-                  
-                    //soundController.GetComponent<AudioSource>().SetScheduledEndTime(AudioSettings.dspTime + (4.30f - 2.00f));
-
+                    if(soundController.GetComponent<SoundController>().sfxOn== true)soundController.GetComponent<AudioSource>().PlayOneShot(soundController.GetComponent<SoundController>().coinDrop);
                 }
             }
             else if (gameMode == 4)
@@ -610,7 +570,6 @@ public class Table : MonoBehaviour {
                 if (rowNumber[0] == 0 && rowNumber[1] == 0 && rowNumber[2] == 0 && colNumber[0] == 0 && colNumber[1] == 0 && colNumber[2] == 0 && rowNumber[3] == 0 && colNumber[3] == 0 &&currentNorma == limit)
                 {
                     GameClear();
-
                 }
             }
            

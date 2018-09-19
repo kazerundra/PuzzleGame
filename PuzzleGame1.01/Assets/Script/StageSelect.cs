@@ -20,7 +20,7 @@ public class StageSelect : MonoBehaviour {
     public void Awake()
     {
         Save = GameObject.Find("SaveSystem");
-        for(int i= 1; i<= 40; i++)
+        for(int i= 1; i<= 33; i++)
         {
             stagePanel.Add(GameObject.Find("Stage (" + i + ")"));
         }
@@ -28,13 +28,13 @@ public class StageSelect : MonoBehaviour {
 
     public void Start()
     {
-        //Debug.Log(Save.GetComponent<SaveSystem>().clearedStage.Count);
+       
         GameObject go;
         for (int i =0; i< Save.GetComponent<SaveSystem>().clearedStage.Count; i++)
         {
             go = Instantiate(Resources.Load("Prefabs/clear m")) as GameObject;
             go.transform.position = stagePanel[Save.GetComponent<SaveSystem>().clearedStage[i]-1].transform.position;
-            //Debug.Log("Stage" + Save.GetComponent<SaveSystem>().clearedStage[i] + "Cleared");
+            
         }
     }
     public void StagePlay()
@@ -47,11 +47,7 @@ public class StageSelect : MonoBehaviour {
         Save.GetComponent<SaveSystem>().stage = s;
         SceneManager.LoadScene("Game");
     }
-    public void TitleMenu()
-    {
-        SceneManager.LoadScene("StartScreen");
-    }
-	
+
 	// Update is called once per frame
 	void Update () {
 		

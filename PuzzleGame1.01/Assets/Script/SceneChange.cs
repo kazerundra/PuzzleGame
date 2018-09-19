@@ -4,18 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneChange : MonoBehaviour {
-    
-
-	// Use this for initialization
-	void Start () {
-       
-	}
+   
+     
 
     public void StageSelect()
     {
-        
         SceneManager.LoadScene("StageSelect");
- 
     }
 
   
@@ -23,6 +17,12 @@ public class SceneChange : MonoBehaviour {
     {
         SceneManager.LoadScene("Game");
     }
+
+    public void TitleMenu()
+    {
+        SceneManager.LoadScene("StartScreen");
+    }
+
     // Update is called once per frame
     void Update () {
         		
