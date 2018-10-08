@@ -30,6 +30,7 @@ public class StageSelect : MonoBehaviour {
     {
        
         GameObject go;
+        //クリアスタンプをプリント
         for (int i =0; i< Save.GetComponent<SaveSystem>().clearedStage.Count; i++)
         {
             go = Instantiate(Resources.Load("Prefabs/clear m")) as GameObject;
@@ -37,6 +38,7 @@ public class StageSelect : MonoBehaviour {
             
         }
     }
+    //押したステージナンバーがSAVESYSTEMに保存
     public void StagePlay()
     {
 

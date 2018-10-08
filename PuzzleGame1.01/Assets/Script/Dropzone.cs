@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 置く場所に何コイン目を確認するスクリプト
 public class Dropzone : MonoBehaviour {
-   // public List<int> coinStack;
+
     public int cointSt;
     public Table table;
  
 
     public void addStack(int value)
     {
-       // coinStack.Add(value);
-       // Debug.Log(coinStack);
         cointSt += 1;
     }
     public void reduceStack()
@@ -27,7 +26,6 @@ public class Dropzone : MonoBehaviour {
     }
     // Use this for initialization
     void Start () {
-       // coinStack = new List<int>();
         cointSt = 0;
         table = GameObject.Find("GameController").GetComponent<Table>();
 		
@@ -38,7 +36,6 @@ public class Dropzone : MonoBehaviour {
         if(table.gameClear == true)
         {
             cointSt = 0;
-            //coinStack.Clear();
         }
 	}
 }

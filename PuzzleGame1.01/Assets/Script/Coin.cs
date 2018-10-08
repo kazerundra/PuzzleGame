@@ -6,37 +6,35 @@ using UnityEngine.UI;
 public class Coin : MonoBehaviour {
 	public bool drag = false;
 	public bool clone =false;
-    //drag clone
+    //分身
 	public GameObject Clone;
     public GameObject CoinBox;
     public GameObject DropObject;
-    //coin at the table with same value
+    //テーブル上にある同じ値のベースコイン
     public GameObject basecoin ;
     public Vector2 touchPosition;
-    //the first time coin is placed
+    //コインの元の位置
     public Vector3 initialPosition;
-    // how much this coin value is
+    // コインの値
 	public int value;
-    //coin clone number
+    //分身の順番
     public int coinOrder;
-    //check whether it is dropable or not
+    //置く場所を確認するためのBOOL
     public bool dropAble;
     // where the coin is placed
     public string id;
     private Table table;
-    // is the coin ontable or inhand
+    // コインはテーブルの上か、置く場所の上か
     public bool ontable;
     public string coinposition;
-    //public bool stackPlus;
     public GameObject touchParticle;
     public GameObject dragParticle;
-    //if the coinstack number is different cannot remove
+    //戻せるコインの順番
     public int coinstchk;
-    //ontable only,dropzone gameobject save
     public GameObject drpzn;
-    //destroy clone;
+    //分身を消す
     public bool destroy;
-    //coin outside the table that is not first one
+    //置く場所の外
     public bool outSideTable;
 
     public Sprite coinSprites;
@@ -67,10 +65,12 @@ public class Coin : MonoBehaviour {
     
     private void OnMouseDown ()
     {
+        //置く場所いがいなら呼びません
         if (outSideTable) return;
+
         if (table.gameClear == false)
         {
-            if (ontable )
+            if (ontable)
             {
                 Flyback();
                 //Destroy(gameObject);
@@ -82,12 +82,13 @@ public class Coin : MonoBehaviour {
             
       
     }
+
     private void Flyback()
     {
         destroy = true;
-      
     }
     void OnMouseUp(){
+        //置く場所いがいなら呼びません
         if (outSideTable) return;
         if (table.gameClear == false )
         {
@@ -96,7 +97,9 @@ public class Coin : MonoBehaviour {
             clone = false;
             
             transform.position = initialPosition;
+            //コライダーサイズを変更
             GetComponent<BoxCollider2D>().size = new Vector2(10.0f, 10.0f);
+            //置く場所以内なら分身を出す
             if (DropObject != null && dropAble == true && !ontable)
             {
                 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -109,8 +112,6 @@ public class Coin : MonoBehaviour {
                 go.GetComponent<Coin>().coinOrder = coinOrder;
                 go.GetComponent<Coin>().basecoin = gameObject;
                
-
-                //go.GetComponent<Coin>().ChangeSprite(); 
                 if (DropObject.GetComponent<Dropzone>().cointSt == 0)
                 {
                     go.transform.position = DropObject.transform.position;
@@ -149,9 +150,7 @@ public class Coin : MonoBehaviour {
        
 	}
     private void Awake()
-    {
-        //Input.multiTouchEnabled = false;
-       
+    {      
         dragParticle = GameObject.Find("Tparticlezz");
         touchParticle = GameObject.Find("Tparticle");
         coinOrder = value;
@@ -160,25 +159,16 @@ public class Coin : MonoBehaviour {
         basecoin = GameObject.Find(coinclone);
 
     }
-
     // Use this for initialization
     void Start () {
         
-        ChangeSprite();
-       
-        //sementara nilainya 1 semua
-        //value = 1;
-       
+        ChangeSprite();       
         initialPosition = transform.position;
-        touchPosition = transform.position;
-        //string coinclone = "Prefabs/CoinClone1";
-       // Clone = Resources.Load(coinclone) as GameObject;
-        
+        touchPosition = transform.position;        
     }
-   
+   //最後のコインの場合、コインを隠す
     public void EnableSprite(int i)
     {
-
         if (table.coinNumber[i] == 0)
         {
             basecoin.GetComponent<SpriteRenderer>().enabled = false;
@@ -188,6 +178,7 @@ public class Coin : MonoBehaviour {
             basecoin.GetComponent<SpriteRenderer>().enabled = true;
         }
     }
+    //コインの分身のスプライトがドラグされたコインの値によって変更します
     public void ChangeSprite()
     {
        // string coinclone = "Prefabs/CoinClone1" ;
@@ -199,7 +190,7 @@ public class Coin : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-       
+       //コインを戻す時、コイン飛ぶのアニメション
         if (destroy)
         {
             float speed = 1000 * Time.deltaTime;
@@ -227,10 +218,9 @@ public class Coin : MonoBehaviour {
         {
             if (drag == true)
             {
-
+                //分身を出す
                 if (!clone)
-                {
-                    
+                {                    
                     clone = true;
                     Clone = Instantiate(Resources.Load("Prefabs/CoinClone1")) as GameObject;
                     Clone.GetComponent<Coin>().value = value;
@@ -241,10 +231,7 @@ public class Coin : MonoBehaviour {
                     if (table.coinNumber[coinOrder - 1] == 1)
                     {
                         Clone.GetComponent<SpriteRenderer>().enabled = false;
-                        
                     }
-
-
                 }
             }
         }
@@ -262,10 +249,9 @@ public class Coin : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (table.gameClear == false)
-        {
+        {   //置く場所を決めるため
             if (collision.gameObject.tag == "DropZone")
             {
-                // Debug.Log("test2");
                 dropAble = true;
                 DropObject = collision.gameObject;
             }
