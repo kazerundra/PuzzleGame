@@ -80,7 +80,6 @@ public class Table : MonoBehaviour {
     public GameObject tutorialScreen;
     public GameObject tutorialPic;
 
-
    
     /// <summary>
 	///  テーブルの上にあるのコインの合計あたいを減らすと増やす
@@ -302,6 +301,14 @@ public class Table : MonoBehaviour {
         FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read);
         if (stream == null) { Debug.Log("ERROR"); }
         System.IO.TextReader file = new System.IO.StreamReader(stream);
+
+#elif UNITY_STANDALONE_WIN
+
+		path = Application.streamingAssetsPath + "/stages/" + filename;
+		FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read);
+		if (stream == null) { Debug.Log("ERROR"); }
+		System.IO.TextReader file = new System.IO.StreamReader(stream);
+
 
 #elif UNITY_ANDROID
 
