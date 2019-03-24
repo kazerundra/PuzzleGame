@@ -46,13 +46,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Resources\Prefabs\SoundController.cs" />
      <Compile Include="Assets\Script\Child.cs" />
      <Compile Include="Assets\Script\Coin.cs" />
      <Compile Include="Assets\Script\Dropzone.cs" />
      <Compile Include="Assets\Script\Effect.cs" />
+     <Compile Include="Assets\Script\Save.cs" />
      <Compile Include="Assets\Script\SaveSystem.cs" />
      <Compile Include="Assets\Script\SceneChange.cs" />
-     <Compile Include="Assets\Script\SoundController.cs" />
      <Compile Include="Assets\Script\StageSelect.cs" />
      <Compile Include="Assets\Script\Table.cs" />
      <Compile Include="Assets\Script\coinPosition.cs" />
@@ -60,12 +61,17 @@
      <None Include="Assets\StreamingAssets\stages\41.txt" />
      <None Include="Assets\StreamingAssets\stages\4.txt" />
      <None Include="Assets\StreamingAssets\stages\8.txt" />
+     <None Include="Assets\StreamingAssets\stages\42.txt" />
+     <None Include="Assets\StreamingAssets\stages\51.txt" />
      <None Include="Assets\StreamingAssets\stages\37.txt" />
      <None Include="Assets\StreamingAssets\stages\30.txt" />
      <None Include="Assets\StreamingAssets\stages\25.txt" />
+     <None Include="Assets\StreamingAssets\stages\47.txt" />
      <None Include="Assets\StreamingAssets\stages\21.txt" />
      <None Include="Assets\StreamingAssets\stages\36.txt" />
+     <None Include="Assets\StreamingAssets\stages\44.txt" />
      <None Include="Assets\StreamingAssets\stages\22.txt" />
+     <None Include="Assets\StreamingAssets\stages\49.txt" />
      <None Include="Assets\StreamingAssets\stages\3.txt" />
      <None Include="Assets\StreamingAssets\stages\29.txt" />
      <None Include="Assets\StreamingAssets\stages\10.txt" />
@@ -73,13 +79,18 @@
      <None Include="Assets\StreamingAssets\stages\31.txt" />
      <None Include="Assets\StreamingAssets\stages\28.txt" />
      <None Include="Assets\StreamingAssets\stages\7.txt" />
+     <None Include="Assets\StreamingAssets\stages\45.txt" />
      <None Include="Assets\StreamingAssets\stages\13.txt" />
      <None Include="Assets\StreamingAssets\stages\26.txt" />
+     <None Include="Assets\StreamingAssets\stages\48.txt" />
      <None Include="Assets\StreamingAssets\stages\24.txt" />
      <None Include="Assets\StreamingAssets\stages\16.txt" />
+     <None Include="Assets\StreamingAssets\stages\50.txt" />
      <None Include="Assets\StreamingAssets\stages\15.txt" />
      <None Include="Assets\StreamingAssets\stages\14.txt" />
+     <None Include="Assets\StreamingAssets\stages\43.txt" />
      <None Include="Assets\StreamingAssets\stages\20.txt" />
+     <None Include="Assets\StreamingAssets\stages\46.txt" />
      <None Include="Assets\StreamingAssets\stages\1.txt" />
      <None Include="Assets\StreamingAssets\stages\40.txt" />
      <None Include="Assets\StreamingAssets\stages\12.txt" />
@@ -97,6 +108,8 @@
      <None Include="Assets\StreamingAssets\stages\38.txt" />
      <None Include="Assets\StreamingAssets\stages\2.txt" />
      <None Include="Assets\StreamingAssets\stages\27.txt" />
+     <None Include="Assets\StreamingAssets\stages\53.txt" />
+     <None Include="Assets\StreamingAssets\stages\52.txt" />
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>C:/Users/Rundra/Documents/Puzzlegame/PuzzleGame1.01/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>

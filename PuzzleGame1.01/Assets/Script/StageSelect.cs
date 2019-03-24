@@ -9,27 +9,44 @@ public class StageSelect : MonoBehaviour {
 
     public GameObject stageButton;
     string stageNumber = "Stage";
-    public GameObject Save;
-
+	public GameObject Save, Three, Four,StageSelectButton,title;
+	public string currentMenu;
     public int s;
     public List<GameObject> stagePanel;
+	public Button fourButton;
+
 
 
     // Use this for initialization
 
     public void Awake()
     {
-        Save = GameObject.Find("SaveSystem");
-        for(int i= 1; i<= 33; i++)
+		Save = GameObject.Find("SaveSystem");
+		fourButton = GameObject.Find ("4x4Button").GetComponent<Button>();
+		//Three = GameObject.Find ("3x3");
+		/*
+		Four = GameObject.Find ("4x4");
+		Tutorial = GameObject.Find ("tutorial");
+		StageSelectButton = GameObject.Find("ButtonSet");
+*/
+/*
+        for(int i= 1; i<= 53; i++)
         {
             stagePanel.Add(GameObject.Find("Stage (" + i + ")"));
         }
+*/
     }
 
     public void Start()
     {
-       
+		currentMenu = "StageSelect";
         GameObject go;
+		if(sa)
+		fourButton.interactable = false;
+		//Tutorial.SetActive (false);
+		//Four.SetActive (false);
+		//Three.SetActive (false);
+		/*
         //クリアスタンプをプリント
         for (int i =0; i< Save.GetComponent<SaveSystem>().clearedStage.Count; i++)
         {
@@ -37,6 +54,7 @@ public class StageSelect : MonoBehaviour {
             go.transform.position = stagePanel[Save.GetComponent<SaveSystem>().clearedStage[i]-1].transform.position;
             
         }
+		*/
     }
     //押したステージナンバーがSAVESYSTEMに保存
     public void StagePlay()
@@ -49,9 +67,46 @@ public class StageSelect : MonoBehaviour {
         Save.GetComponent<SaveSystem>().stage = s;
         SceneManager.LoadScene("Game");
     }
+	public void tutorial()
+	{
+		Save =GameObject.Find("SaveSystem");
+		Save.GetComponent<SaveSystem>().stage = 1;
+		SceneManager.LoadScene("Game");
+	}
+	public void Stage3x3()
+	{
+		currentMenu = "3";
+		StageSelectButton.SetActive (false);
+		Three.SetActive (true);
+		title.GetComponent<Text> ().text = "3X3";
+	}
+	public void Stage4x4()
+	{
+		currentMenu ="4";
+		StageSelectButton.SetActive (false);
+		Four.SetActive (true);
+		title.GetComponent<Text> ().text = "4X4";
+	}
+	public void backButton()
+	{
+		if (currentMenu == "3") {
+			Three.SetActive (false);
+			currentMenu = "mainmenu";
+		} else if (currentMenu == "4") {
+			Four.SetActive (false);
+			currentMenu = "mainmenu";
+		}
+		else 
+		{
+			SceneManager.LoadScene("StartScreen");
+		}
+		title.GetComponent<Text> ().text = "STAGE SELECT";
+		StageSelectButton.SetActive (true);			
+	}
 
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
 }

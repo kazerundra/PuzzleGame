@@ -1,6 +1,0 @@
-4
-rows,2,1,0,1
-cols,1,1,1,1
-norma,4
-value,1
-coins,4

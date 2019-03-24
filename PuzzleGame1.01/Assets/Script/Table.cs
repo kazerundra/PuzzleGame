@@ -533,8 +533,7 @@ public class Table : MonoBehaviour {
                 clearScreen = false;
                 clear += Time.deltaTime;
                 gameClearSprite2.gameObject.SetActive(true);
-				if(stageNumber ==1 ||stageNumber ==2 || stageNumber ==3) saveSystem.GetComponent<SaveSystem>().ClearedStage(stageNumber+30);
-                else saveSystem.GetComponent<SaveSystem>().ClearedStage(stageNumber-3);
+				saveSystem.GetComponent<SaveSystem>().ClearedStage(stageNumber+3);
                 gameClear = true;
                 clear = 0;
             }
