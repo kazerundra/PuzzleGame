@@ -22,39 +22,62 @@ public class StageSelect : MonoBehaviour {
     public void Awake()
     {
 		Save = GameObject.Find("SaveSystem");
-		fourButton = GameObject.Find ("4x4Button").GetComponent<Button>();
-		//Three = GameObject.Find ("3x3");
-		/*
+        Four.SetActive(true);
+        Three.SetActive(true);
+        //fourButton = GameObject.Find ("4x4Button").GetComponent<Button>();
+        //Three = GameObject.Find ("3x3");
+        /*
 		Four = GameObject.Find ("4x4");
 		Tutorial = GameObject.Find ("tutorial");
 		StageSelectButton = GameObject.Find("ButtonSet");
 */
-/*
-        for(int i= 1; i<= 53; i++)
+
+        for (int i= 1; i<= 53; i++)
         {
             stagePanel.Add(GameObject.Find("Stage (" + i + ")"));
         }
-*/
+
     }
 
     public void Start()
     {
 		currentMenu = "StageSelect";
         GameObject go;
-		if(sa)
-		fourButton.interactable = false;
-		//Tutorial.SetActive (false);
-		//Four.SetActive (false);
-		//Three.SetActive (false);
-		/*
+        //if(sa)
+       
+        //Tutorial.SetActive (false);
+        Four.SetActive (true);
+        Three.SetActive (true);
+       // Debug.Log(this.gameObject.name);
+        //this.gameObject.name = "ini";
+
         //クリアスタンプをプリント
+        Debug.Log("Total:"+Save.GetComponent<SaveSystem>().clearedStage.Count);
+        
         for (int i =0; i< Save.GetComponent<SaveSystem>().clearedStage.Count; i++)
         {
+            Debug.Log(Save.GetComponent<SaveSystem>().clearedStage[i]-1);
             go = Instantiate(Resources.Load("Prefabs/clear m")) as GameObject;
-            go.transform.position = stagePanel[Save.GetComponent<SaveSystem>().clearedStage[i]-1].transform.position;
+            go.transform.position = stagePanel[Save.GetComponent<SaveSystem>().clearedStage[i]-4].transform.position;
+            if (Save.GetComponent<SaveSystem>().clearedStage[i]-1<28)
+            {
+                go.transform.parent = Three.transform;
+            }
+            else
+            {
+                go.transform.parent = Four.transform;
+            }
+           
             
         }
-		*/
+        if (Save.GetComponent<SaveSystem>().clearedStage.Count <= 5)
+        {
+            fourButton.interactable = false;
+        }
+           
+        Four.SetActive(false);
+        Three.SetActive(false);
+
     }
     //押したステージナンバーがSAVESYSTEMに保存
     public void StagePlay()

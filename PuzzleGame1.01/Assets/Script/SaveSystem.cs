@@ -13,29 +13,31 @@ public class SaveSystem : MonoBehaviour {
     public bool tutorial;
     //which tutorial is done
     public bool t1, t2, t3;
+    Save save = new Save();
 
     // Use this for initialization
-	static Save startSave(int Stage)
+	
+	public void saveClearStage(List<int> Stage)
 	{
-		Save save = new Save ();
-		save.clearedStage.Add(Stage);
-		return save;
-	}
-	public void saveClearStage(int Stage)
-	{
-		Save save = startSave (Stage);
-		BinaryFormatter bf = new BinaryFormatter ();
+        // FileStream fs = new FileStream("save.dat", FileMode.Create);
+        //BinaryFormatter bf = new BinaryFormatter();
+        // bf.Serialize(fs, yourList);
+        // fs.Close(); 
+        save.clearedStage = Stage;
+
+        BinaryFormatter bf = new BinaryFormatter ();
 		FileStream file = File.Create (Application.persistentDataPath + "/gamesave.save");
-		bf.Serialize (file, save);
+		bf.Serialize (file, save.clearedStage);
 		file.Close ();
-		Debug.Log ("SaveOk");
+		Debug.Log ("SaveOk:");
+
 	}
 	public void Loadgame()
 	{
 		if (File.Exists ((Application.persistentDataPath + "/gamesave.save"))) {
 			BinaryFormatter bf = new BinaryFormatter ();
 			FileStream file = File.Open ((Application.persistentDataPath + "/gamesave.save"), FileMode.Open);
-			Save save = (Save)bf.Deserialize (file);
+            save.clearedStage= (List<int>)bf.Deserialize (file);
 			file.Close ();
 			for (int i = 0; i < save.clearedStage.Count; i++) {
 				clearedStage.Add (save.clearedStage [i]);
@@ -66,26 +68,19 @@ public class SaveSystem : MonoBehaviour {
 	}
     public void ClearedStage(int STN)
     {
-        if (clearedStage.Contains(STN))
+        if(STN >= 4)
         {
+            if (clearedStage.Contains(STN))
+            {
 
-        }else
-        {
-            clearedStage.Add(STN);
-			saveClearStage(STN);
-        }     
-       if(STN == 1)
-        {
-            t1 = true;
+            }
+            else
+            {
+                clearedStage.Add(STN);
+                saveClearStage(clearedStage);
+            }
         }
-       else if (STN == 2)
-        {
-            t2 = true;
-        }
-       else if (STN == 3)
-        {
-            t3 = true;
-        }
+       
     }
 	
 	// Update is called once per frame

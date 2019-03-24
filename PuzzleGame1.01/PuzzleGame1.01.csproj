@@ -91,13 +91,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Resources\Prefabs\SoundController.cs" />
     <Compile Include="Assets\Script\Child.cs" />
     <Compile Include="Assets\Script\Coin.cs" />
     <Compile Include="Assets\Script\Dropzone.cs" />
     <Compile Include="Assets\Script\Effect.cs" />
+    <Compile Include="Assets\Script\Save.cs" />
     <Compile Include="Assets\Script\SaveSystem.cs" />
     <Compile Include="Assets\Script\SceneChange.cs" />
-    <Compile Include="Assets\Script\SoundController.cs" />
     <Compile Include="Assets\Script\StageSelect.cs" />
     <Compile Include="Assets\Script\Table.cs" />
     <Compile Include="Assets\Script\coinPosition.cs" />
@@ -139,7 +140,19 @@
     <None Include="Assets\StreamingAssets\stages\4.txt" />
     <None Include="Assets\StreamingAssets\stages\40.txt" />
     <None Include="Assets\StreamingAssets\stages\41.txt" />
+    <None Include="Assets\StreamingAssets\stages\42.txt" />
+    <None Include="Assets\StreamingAssets\stages\43.txt" />
+    <None Include="Assets\StreamingAssets\stages\44.txt" />
+    <None Include="Assets\StreamingAssets\stages\45.txt" />
+    <None Include="Assets\StreamingAssets\stages\46.txt" />
+    <None Include="Assets\StreamingAssets\stages\47.txt" />
+    <None Include="Assets\StreamingAssets\stages\48.txt" />
+    <None Include="Assets\StreamingAssets\stages\49.txt" />
     <None Include="Assets\StreamingAssets\stages\5.txt" />
+    <None Include="Assets\StreamingAssets\stages\50.txt" />
+    <None Include="Assets\StreamingAssets\stages\51.txt" />
+    <None Include="Assets\StreamingAssets\stages\52.txt" />
+    <None Include="Assets\StreamingAssets\stages\53.txt" />
     <None Include="Assets\StreamingAssets\stages\6.txt" />
     <None Include="Assets\StreamingAssets\stages\7.txt" />
     <None Include="Assets\StreamingAssets\stages\8.txt" />

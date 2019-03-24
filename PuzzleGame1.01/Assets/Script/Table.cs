@@ -533,7 +533,7 @@ public class Table : MonoBehaviour {
                 clearScreen = false;
                 clear += Time.deltaTime;
                 gameClearSprite2.gameObject.SetActive(true);
-				saveSystem.GetComponent<SaveSystem>().ClearedStage(stageNumber+3);
+				saveSystem.GetComponent<SaveSystem>().ClearedStage(stageNumber);
                 gameClear = true;
                 clear = 0;
             }
@@ -568,7 +568,7 @@ public class Table : MonoBehaviour {
                 if (rowNumber[0] == 0 && rowNumber[1] == 0 && rowNumber[2] == 0 && colNumber[0] == 0 && colNumber[1] == 0 && colNumber[2] == 0 && currentNorma == limit)
                 {
                     GameClear();
-                    if(soundController.GetComponent<SoundController>().sfxOn== true)soundController.GetComponent<AudioSource>().PlayOneShot(soundController.GetComponent<SoundController>().coinDrop);
+                    
                 }
             }
             else if (gameMode == 4)
@@ -578,7 +578,8 @@ public class Table : MonoBehaviour {
                     GameClear();
                 }
             }
-           
+            if (soundController.GetComponent<SoundController>().sfxOn == true) soundController.GetComponent<AudioSource>().PlayOneShot(soundController.GetComponent<SoundController>().coinDrop);
+
         }
       
         
