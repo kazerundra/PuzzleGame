@@ -192,6 +192,8 @@ public class Table : MonoBehaviour {
         gameClearSprite.gameObject.SetActive(false);
         gameClearSprite2.gameObject.SetActive(false);
         tutorialScreen.gameObject.SetActive(false);
+		loadc.GetComponent<Camera>().enabled = false;
+		main.GetComponent<Camera>().enabled = true;
         stageNumber = saveSystem.GetComponent<SaveSystem>().stage;        
         StartCoroutine(ReadConfig());   
     }
@@ -282,6 +284,7 @@ public class Table : MonoBehaviour {
         rowNumber[0] = 9;
         coinRain.gameObject.SetActive(true);
         clearScreen = true;
+		if (soundController.GetComponent<SoundController>().sfxOn == true) soundController.GetComponent<AudioSource>().PlayOneShot(soundController.GetComponent<SoundController>().coinDrop);
     }
 
 	//テクストファイルからステージを読み込む
@@ -538,10 +541,12 @@ public class Table : MonoBehaviour {
                 clear = 0;
             }
         }
+		/*
         if (load)
         {
             BlackScreenLoad();
         }
+		*/
        
 		if (currentNorma == limit) 
 		{
@@ -568,6 +573,7 @@ public class Table : MonoBehaviour {
                 if (rowNumber[0] == 0 && rowNumber[1] == 0 && rowNumber[2] == 0 && colNumber[0] == 0 && colNumber[1] == 0 && colNumber[2] == 0 && currentNorma == limit)
                 {
                     GameClear();
+				
                     
                 }
             }
@@ -578,8 +584,7 @@ public class Table : MonoBehaviour {
                     GameClear();
                 }
             }
-            if (soundController.GetComponent<SoundController>().sfxOn == true) soundController.GetComponent<AudioSource>().PlayOneShot(soundController.GetComponent<SoundController>().coinDrop);
-
+           
         }
       
         
