@@ -79,6 +79,7 @@ public class Table : MonoBehaviour {
     public bool tutorial;
     public GameObject tutorialScreen;
     public GameObject tutorialPic;
+	public int totalStage =53;
 
    
     /// <summary>
@@ -439,7 +440,7 @@ public class Table : MonoBehaviour {
     public void NextStage()
     {
         load = true;
-        if (stageNumber < 33)
+        if (stageNumber < totalStage)
         {
             stageNumber += 1;
             saveSystem.GetComponent<SaveSystem>().stage = stageNumber;
