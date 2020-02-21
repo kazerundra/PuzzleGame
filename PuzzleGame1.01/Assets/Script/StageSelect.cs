@@ -43,40 +43,38 @@ public class StageSelect : MonoBehaviour {
     {
 		currentMenu = "StageSelect";
         GameObject go;
-        //if(sa)
-       
-        //Tutorial.SetActive (false);
+      
         Four.SetActive (true);
         Three.SetActive (true);
-       // Debug.Log(this.gameObject.name);
-        //this.gameObject.name = "ini";
 
-        //クリアスタンプをプリント
-        Debug.Log("Total:"+Save.GetComponent<SaveSystem>().clearedStage.Count);
-        
-        for (int i =0; i< Save.GetComponent<SaveSystem>().clearedStage.Count; i++)
+
+        //クリアスタンプをプリント      
+        if (!Save.GetComponent<SaveSystem>().noSave)
         {
-            Debug.Log(Save.GetComponent<SaveSystem>().clearedStage[i]-1);
-            go = Instantiate(Resources.Load("Prefabs/clear m")) as GameObject;
-            go.transform.position = stagePanel[Save.GetComponent<SaveSystem>().clearedStage[i]-4].transform.position;
-            if (Save.GetComponent<SaveSystem>().clearedStage[i]-1<28)
+            for (int i = 0; i < Save.GetComponent<SaveSystem>().clearedStage.Count; i++)
             {
-                go.transform.parent = Three.transform;
+                Debug.Log(Save.GetComponent<SaveSystem>().clearedStage[i] - 1);
+                go = Instantiate(Resources.Load("Prefabs/clear m")) as GameObject;
+                go.transform.position = stagePanel[Save.GetComponent<SaveSystem>().clearedStage[i] - 4].transform.position;
+                if (Save.GetComponent<SaveSystem>().clearedStage[i] - 1 < 28)
+                {
+                    go.transform.parent = Three.transform;
+                }
+                else
+                {
+                    go.transform.parent = Four.transform;
+                }
+                go.transform.localScale = new Vector3(6, 6, 6);
             }
-            else
-            {
-                go.transform.parent = Four.transform;
-            }
-           
-            
         }
+        
         if (Save.GetComponent<SaveSystem>().clearedStage.Count <= 5)
         {
             fourButton.interactable = false;
         }
            
-        Four.SetActive(false);
-        Three.SetActive(false);
+       //Four.SetActive(false);
+        //Three.SetActive(false);
 
     }
     //押したステージナンバーがSAVESYSTEMに保存

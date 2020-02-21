@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\NextPage.cs" />
      <Compile Include="Assets\Resources\Prefabs\SoundController.cs" />
      <Compile Include="Assets\Script\Child.cs" />
      <Compile Include="Assets\Script\Coin.cs" />
